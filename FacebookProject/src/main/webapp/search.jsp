@@ -8,5 +8,8 @@
 </head>
 <body>
 HEY !!
+		<div th:each="post:${feed}">
+			<p th:text="${post.id}">message text</p>
+			</div>
 </body>
 </html>
