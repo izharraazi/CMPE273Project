@@ -7,9 +7,23 @@
 <title>Test</title>
 </head>
 <body>
-HEY !!
-		<div th:each="post:${feed}">
-			<p th:text="${post.id}">message text</p>
-			</div>
+<div id="fb-root"></div>
+<!--  <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1444903262469722";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>-->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1444903262469722";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<p>Hey guys !!</p>
+<div class="fb-share-button" data-href="welcome.jsp" title="TEST" data-layout="button"></div>
+<!--  <div class="fb-send" data-href="welcome.jsp"></div>-->
 </body>
 </html>
