@@ -42,7 +42,7 @@ public class HomeFeedUtility {
                if(like.getId().equals(userId)){
             	   System.out.println("--"+i+" == "+likePost.getId());
                   UserHomeFeed homeFeed = getEquvivalentHomeFeed(likePost.getId(), userHomeFeed);
-                  addFeedData(homeFeed, likePost);
+                  addFeedData(homeFeed, likePost, userId);
                   homeFeed.setLike(true);
                }
               }
@@ -57,7 +57,7 @@ public class HomeFeedUtility {
                      if(nextLikeData.getId().equals(userId)){
                     	 System.out.println("--"+i+" =~~~~~= "+likePost.getId());
                         UserHomeFeed homeFeed = getEquvivalentHomeFeed(likePost.getId(), userHomeFeed);
-                        addFeedData(homeFeed, likePost);
+                        addFeedData(homeFeed, likePost, userId);
                         homeFeed.setLike(true);
                      }
                  }
@@ -91,7 +91,7 @@ public class HomeFeedUtility {
                   userComments.add(comment2);
                   
                   UserHomeFeed homeFeed = getEquvivalentHomeFeed(commentPost.getId(), userHomeFeed);
-                  addFeedData(homeFeed, commentPost);
+                  addFeedData(homeFeed, commentPost, userId);
                   homeFeed.setCommentlist(commentId);
                   homeFeed.setComments(userComments);
                }
@@ -113,7 +113,7 @@ public class HomeFeedUtility {
                      userComments.add(comment2);
                      
                      UserHomeFeed homeFeed = getEquvivalentHomeFeed(commentPost.getId(), userHomeFeed);
-                     addFeedData(homeFeed, commentPost);
+                     addFeedData(homeFeed, commentPost, userId);
                      homeFeed.setCommentlist(commentId);
                      homeFeed.setComments(userComments);;
                  }
@@ -141,7 +141,8 @@ public class HomeFeedUtility {
         return homeFeed;
    }
    
-   public UserHomeFeed addFeedData(UserHomeFeed homeFeed, Post post){
+   public UserHomeFeed addFeedData(UserHomeFeed homeFeed, Post post, String userId){
+	  //homeFeed.setUserId(userId);
       homeFeed.setId(post.getId());
       homeFeed.setCreated_date(formater.format(post.getCreatedTime()));
       if(post.getLink()!=null && !post.getLink().isEmpty())
