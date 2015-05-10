@@ -1,13 +1,13 @@
 package facebook.model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 
 public class UserHomeFeed {
 
@@ -15,6 +15,12 @@ public class UserHomeFeed {
 	@Id
 	@NotNull
 	private String id;
+	
+	@NotNull
+	private String userid;
+	
+	@Null
+	private String saved_date;
 	
 	@Null
 	private String created_date;
@@ -31,11 +37,11 @@ public class UserHomeFeed {
 	@Null
 	private String message;
 	
-	@Null
-	private ArrayList<String> commentlist;
+	//@Null
+	//private ArrayList<String> commentlist;
 	
-	@Transient
-	private List<UserComment> comments = new ArrayList<UserComment>();
+	
+	private Set<UserComment> comments = new HashSet<UserComment>();
 	
 	
 	public String getId() {
@@ -68,23 +74,35 @@ public class UserHomeFeed {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public ArrayList<String> getCommentlist() {
+	/*public ArrayList<String> getCommentlist() {
 		return commentlist;
 	}
 	public void setCommentlist(ArrayList<String> commentlist) {
 		this.commentlist = commentlist;
-	}
+	}*/
 	public Boolean getLike() {
 		return like;
 	}
 	public void setLike(Boolean like) {
 		this.like = like;
 	}
-	public List<UserComment> getComments() {
+	public Set<UserComment> getComments() {
 		return comments;
 	}
-	public void setComments(List<UserComment> comments) {
+	public void setComments(Set<UserComment> comments) {
 		this.comments = comments;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public String getSaved_date() {
+		return saved_date;
+	}
+	public void setSaved_date(String saved_date) {
+		this.saved_date = saved_date;
 	}
 	
 

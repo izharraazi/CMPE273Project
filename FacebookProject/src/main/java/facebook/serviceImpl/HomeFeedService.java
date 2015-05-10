@@ -56,7 +56,8 @@ public class HomeFeedService implements HomeFeed {
 	    	System.out.println(" -- "+feed.getLink());
 	    	System.out.println(" -- "+feed.getMessage());
 	    	System.out.println(" -- "+feed.getType());
-	    	System.out.println(" -- "+feed.getCommentlist());
+	    	//System.out.println(" -- "+feed.getCommentlist());
+	    	System.out.println(" -- "+feed.getComments());
 	    	System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	    }
 	    homeFeed = fbClient.fetchConnectionPage(homeFeed.getNextPageUrl(), Post.class);

@@ -1,4 +1,4 @@
-package facebook.repository;
+/*package facebook.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -9,3 +9,4 @@ public interface UserCommentRepo extends MongoRepository<UserComment,String> {
 	public UserComment findById(String id);
 
 }
+*/

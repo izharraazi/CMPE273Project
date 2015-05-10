@@ -2,9 +2,12 @@ package facebook.Utility;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.restfb.Connection;
 import com.restfb.FacebookClient;
@@ -18,13 +21,14 @@ import facebook.model.UserComment;
 import facebook.model.UserHomeFeed;
 
 public class HomeFeedUtility {
+	Date date = new Date();
    private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
    List<UserHomeFeed> userHomeFeed;
    
    @SuppressWarnings("rawtypes")
    public List<UserHomeFeed> createHomeFeedData(Map<Post,Comments> commentMap, Map<Post,Likes> likeMap, String userId, FacebookClient fbClient){
       userHomeFeed = new ArrayList<UserHomeFeed>();
-      List<UserComment> userComments = new ArrayList<UserComment>();
+      Set<UserComment> userComments = new HashSet<UserComment>();
       ArrayList<String> commentId = new ArrayList<String>();
       
       Iterator commentIterator = commentMap.entrySet().iterator();
@@ -92,7 +96,8 @@ public class HomeFeedUtility {
                   
                   UserHomeFeed homeFeed = getEquvivalentHomeFeed(commentPost.getId(), userHomeFeed);
                   addFeedData(homeFeed, commentPost, userId);
-                  homeFeed.setCommentlist(commentId);
+                 // homeFeed.setCommentlist(commentId);
+                 // if(homeFeed.getComments()!=null && !homeFeed.getComments().isEmpty() && !homeFeed.getComments().contains(comment2.getId()))
                   homeFeed.setComments(userComments);
                }
               }
@@ -114,7 +119,7 @@ public class HomeFeedUtility {
                      
                      UserHomeFeed homeFeed = getEquvivalentHomeFeed(commentPost.getId(), userHomeFeed);
                      addFeedData(homeFeed, commentPost, userId);
-                     homeFeed.setCommentlist(commentId);
+                     //homeFeed.setCommentlist(commentId);
                      homeFeed.setComments(userComments);;
                  }
 	             }
@@ -141,10 +146,12 @@ public class HomeFeedUtility {
         return homeFeed;
    }
    
-   public UserHomeFeed addFeedData(UserHomeFeed homeFeed, Post post, String userId){
-	  //homeFeed.setUserId(userId);
+   public UserHomeFeed addFeedData(UserHomeFeed homeFeed, Post post, String userid){
+	  homeFeed.setUserid(userid);
       homeFeed.setId(post.getId());
       homeFeed.setCreated_date(formater.format(post.getCreatedTime()));
+      homeFeed.setSaved_date(formater.format(new Date()));
+      
       if(post.getLink()!=null && !post.getLink().isEmpty())
       homeFeed.setLink(post.getLink());
       if(post.getType()!=null && !post.getType().isEmpty())

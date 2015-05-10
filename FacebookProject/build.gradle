@@ -36,6 +36,7 @@ dependencies {
     compile group: 'com.restfb', name: 'restfb', version: '1.7.0'
     compile 'org.facebook4j:facebook4j-core:2.2.0'
     providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
 
 }
 
