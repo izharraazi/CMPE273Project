@@ -151,7 +151,6 @@ public class HomeFeedUtility {
       homeFeed.setId(post.getId());
       homeFeed.setCreated_date(formater.format(post.getCreatedTime()));
       homeFeed.setSaved_date(formater.format(new Date()));
-      
       if(post.getLink()!=null && !post.getLink().isEmpty())
       homeFeed.setLink(post.getLink());
       if(post.getType()!=null && !post.getType().isEmpty())
@@ -160,6 +159,9 @@ public class HomeFeedUtility {
       homeFeed.setMessage(post.getMessage());
       }else{
       homeFeed.setMessage("No Message");
+      }
+      if(post.getPicture()!=null && !post.getPicture().isEmpty()){
+	  homeFeed.setPicture(post.getPicture());
       }
       return homeFeed;
    }

@@ -8,4 +8,5 @@ import facebook.model.UserHomeFeed;
 
 public interface HomeFeed {
 	public List<UserHomeFeed> findFavoritePosts(FacebookClient fbClient,String userId);
+	public List<UserHomeFeed> fetchPostsOnType(String userId, String postType);
 }

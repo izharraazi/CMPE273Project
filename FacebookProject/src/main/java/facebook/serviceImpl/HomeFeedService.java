@@ -1,5 +1,6 @@
 package facebook.serviceImpl;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,14 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.MongoException;
 import com.restfb.Connection;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
@@ -28,7 +37,7 @@ public class HomeFeedService implements HomeFeed {
 
 	int flag = 0;
 	List<UserHomeFeed> finalFeeds = new ArrayList<UserHomeFeed>();
-	Connection<Post> homeFeed = fbClient.fetchConnection("me/home", Post.class, Parameter.with("fields","id,link,type,description,from,likes,comments,message,created_time"),Parameter.with("limit", 10));
+	Connection<Post> homeFeed = fbClient.fetchConnection("me/home", Post.class, Parameter.with("fields","id,link,type,description,from,likes,comments,message,created_time,picture"),Parameter.with("limit", 10));
 	do{
 		System.out.println("Page: "+flag );
 	    System.out.println(homeFeed.getData().size()+" userId -- "+userId);
@@ -56,7 +65,7 @@ public class HomeFeedService implements HomeFeed {
 	    	System.out.println(" -- "+feed.getLink());
 	    	System.out.println(" -- "+feed.getMessage());
 	    	System.out.println(" -- "+feed.getType());
-	    	//System.out.println(" -- "+feed.getCommentlist());
+	    	System.out.println(" -- "+feed.getPicture());
 	    	System.out.println(" -- "+feed.getComments());
 	    	System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	    }
@@ -66,5 +75,52 @@ public class HomeFeedService implements HomeFeed {
 	    System.out.println("finalFeeds--" +finalFeeds.size());
 	    return finalFeeds;
 	}
+
+	@Override
+	public List<UserHomeFeed> fetchPostsOnType(String userId, String postType) {
+		List<UserHomeFeed> homeFeeds = new ArrayList<UserHomeFeed>();
+ 	   try {
+   	    MongoClientURI uri  = new MongoClientURI("mongodb://Team273:Team273@ds061621.mongolab.com:61621/team273"); 
+   	    MongoClient client = new MongoClient(uri);
+   	    DB db = client.getDB(uri.getDatabase());
+   		BasicDBObject searchQuery = new BasicDBObject();
+   		List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+   		obj.add(new BasicDBObject("userid",userId));
+   		obj.add(new BasicDBObject("type",postType));
+   		searchQuery.put("$and", obj);
+   		DBCollection table = db.getCollection("userHomeFeed");
+   		DBCursor cursor = table.find(searchQuery);
+   		while (cursor.hasNext()) {
+   			DBObject a = cursor.next();
+   			UserHomeFeed feed = new UserHomeFeed();
+   			feed.setId((String)a.get("_id"));
+   			feed.setLike((Boolean)a.get("like"));
+   			feed.setLink((String)a.get("link"));
+   			feed.setMessage((String)a.get("message"));
+   			feed.setType((String)a.get("type"));
+   			feed.setUserid((String)a.get("userid"));
+   			feed.setPicture((String)a.get("picture"));
+   			homeFeeds.add(feed);
+   			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+   			//System.out.println(cursor.next());
+   			
+   			/*System.out.println("Id: "+a.get("_id"));
+   			System.out.println("like: "+a.get("like"));
+   			System.out.println("link: "+a.get("link"));
+   			System.out.println("message: "+a.get("comments"));
+   			System.out.println("type: "+a.get("type"));
+   			System.out.println("userid: "+a.get("userid"));
+   			System.out.println("Picture: "+a.get("picture"));*/
+   				
+   		} 
+   		cursor.close();
+   	   }
+   		catch (UnknownHostException e) {
+   		e.printStackTrace();
+   	    } catch (MongoException e) {
+   		e.printStackTrace();
+   	    }
+	return homeFeeds;
+      }
 
 }

@@ -1,7 +1,6 @@
 package facebook.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -37,9 +36,8 @@ public class UserHomeFeed {
 	@Null
 	private String message;
 	
-	//@Null
-	//private ArrayList<String> commentlist;
-	
+	@Null
+	private String picture;
 	
 	private Set<UserComment> comments = new HashSet<UserComment>();
 	
@@ -74,12 +72,6 @@ public class UserHomeFeed {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	/*public ArrayList<String> getCommentlist() {
-		return commentlist;
-	}
-	public void setCommentlist(ArrayList<String> commentlist) {
-		this.commentlist = commentlist;
-	}*/
 	public Boolean getLike() {
 		return like;
 	}
@@ -104,6 +96,19 @@ public class UserHomeFeed {
 	public void setSaved_date(String saved_date) {
 		this.saved_date = saved_date;
 	}
-	
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	@Override
+	public String toString() {
+		return "UserHomeFeed [id=" + id + ", userid=" + userid
+				+ ", saved_date=" + saved_date + ", created_date="
+				+ created_date + ", link=" + link + ", type=" + type
+				+ ", like=" + like + ", message=" + message + ", picture="
+				+ picture + ", comments=" + comments + "]";
+	}
 
 }
