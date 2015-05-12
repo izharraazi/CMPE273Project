@@ -1,14 +1,27 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" >
-<title>welcome</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Design and Code an integrated Facebook App</title>
 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 <script src="/js/myjava.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$(".tab_content").hide(); //On page load hide all the contents of all tabs
+	$("ul.tabs li:nth-child(2)").addClass("active").show(); //Default to the first tab
+	$(".tab_content:nth-child(2)").show(); //Show the default tabs content
+
+	//When the user clicks on the tab
+	
+});
+</script>
 <style type="text/css">
 /*-----------------------------------------------------------------------------------*/
 /*	Setup
@@ -38,6 +51,14 @@ width:1349px;
 height:1628.07px;
 background-color:#F2F2F6;
 }
+body, input{
+background: white;
+font-size: 11px;
+font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+color: #333;
+line-height: 1.28;
+word-wrap:break-word;	
+}
 .wrapper{
 width: 760px;
 height:1628.07px;
@@ -47,7 +68,7 @@ padding-top:20px;
 background-color:white;
 }
 .maincontent{
-width:480px;
+width:760px;
 float:left;	
 background-color:white;	
 }
@@ -99,6 +120,10 @@ ul.tabs li:first-child{ /*--Removes the left border from the first child of the 
 border-left:none;	
 	
 }
+ul.tabs li:AFTER{ /*--Removes the left border from the first child of the list--*/
+border-left:none;	
+	
+}
 ul.tabs li a {
 	text-decoration: none;
 	color: #333333;
@@ -121,25 +146,8 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that th
 ul.tabs li.active a{
 	color:#3B5998;	
 }
-.button{
-	background-color:#ECEEF5;
-	border:1px solid #CAD4E7;
-	text-decoration:none;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-padding: 2px 3px 2px 2px;
-margin-right:5px;
-}
-.button:hover{
-	border:1px solid #9DACCE;
-	text-decoration:none;
-	
-}
 </style>
 </head>
-
-
 <body>
 
 <div class="topdiv">
@@ -151,17 +159,28 @@ margin-right:5px;
 
 	<div class="maincontent">
         
-         <button class="button" onclick="location.href='https://www.facebook.com/dialog/oauth?client_id=1444903262469722&redirect_uri=http://localhost:8080/facebookApp'">Connect to Facebook</button>
+        <ul class="tabs">
+            <li><a href="/facebookApp">&nbsp;Photos&nbsp;</a></li>
+            <li><a href="#tab2">&nbsp;Videos&nbsp;</a></li>
+            <li><a href="/status">&nbsp;Statuses&nbsp;</a></li>
+            <li><a href="/event">&nbsp;Events&nbsp;</a></li>
+		</ul>
+		<c:forEach items="${feeds}" var="arr">
+   <c:set var="likes" value="${arr.like}"/> 
+    <c:set var="type" value="${arr.type}"/>
+    <p>${arr.message}</p>
+    <p class="video">
+    	<c:if test="${type=='video'}">
+	<video width="400" controls>
+    	<source src="${arr.source}" type="video/mp4">
+    	</video>
+         </c:if>   
+        </p>  
+    	</c:forEach>
     
+<br/>
 </div><!--End Wrapper -->
 </div>
 </div>
 </body>
 </html>
-
-        
-       
-    
-
-
-
