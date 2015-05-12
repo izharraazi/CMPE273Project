@@ -37,7 +37,7 @@ public class HomeFeedService implements HomeFeed {
 
 	int flag = 0;
 	List<UserHomeFeed> finalFeeds = new ArrayList<UserHomeFeed>();
-	Connection<Post> homeFeed = fbClient.fetchConnection("me/home", Post.class, Parameter.with("fields","id,link,type,description,from,likes,comments,message,created_time,picture"),Parameter.with("limit", 10));
+	Connection<Post> homeFeed = fbClient.fetchConnection("me/home", Post.class, Parameter.with("fields","id,link,type,description,from,likes,comments,message,created_time,picture,source"),Parameter.with("limit", 10));
 	do{
 		System.out.println("Page: "+flag );
 	    System.out.println(homeFeed.getData().size()+" userId -- "+userId);
@@ -67,6 +67,7 @@ public class HomeFeedService implements HomeFeed {
 	    	System.out.println(" -- "+feed.getType());
 	    	System.out.println(" -- "+feed.getPicture());
 	    	System.out.println(" -- "+feed.getComments());
+	    	System.out.println(" -- "+feed.getSource());
 	    	System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	    }
 	    homeFeed = fbClient.fetchConnectionPage(homeFeed.getNextPageUrl(), Post.class);
@@ -100,6 +101,7 @@ public class HomeFeedService implements HomeFeed {
    			feed.setType((String)a.get("type"));
    			feed.setUserid((String)a.get("userid"));
    			feed.setPicture((String)a.get("picture"));
+   			feed.setSource((String)a.get("source"));
    			homeFeeds.add(feed);
    			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
    			//System.out.println(cursor.next());

@@ -39,6 +39,10 @@ public class UserHomeFeed {
 	@Null
 	private String picture;
 	
+	@Null
+	private String source;
+	
+	
 	private Set<UserComment> comments = new HashSet<UserComment>();
 	
 	
@@ -102,13 +106,19 @@ public class UserHomeFeed {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
 	@Override
 	public String toString() {
 		return "UserHomeFeed [id=" + id + ", userid=" + userid
 				+ ", saved_date=" + saved_date + ", created_date="
 				+ created_date + ", link=" + link + ", type=" + type
 				+ ", like=" + like + ", message=" + message + ", picture="
-				+ picture + ", comments=" + comments + "]";
+				+ picture + "source=" + source + ", comments=" + comments + "]";
 	}
 
 }
