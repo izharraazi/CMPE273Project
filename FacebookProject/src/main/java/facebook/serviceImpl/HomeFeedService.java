@@ -22,6 +22,7 @@ import com.mongodb.MongoException;
 import com.restfb.Connection;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
+import com.restfb.types.Event;
 import com.restfb.types.Post;
 import com.restfb.types.Post.Comments;
 import com.restfb.types.Post.Likes;
@@ -80,7 +81,22 @@ public class HomeFeedService implements HomeFeed {
 	    System.out.println("finalFeeds--" +finalFeeds.size());
 	    return finalFeeds;
 	}
-
+	@Override
+	public String searchEvents(FacebookClient fbClient,String userId)
+	{
+		
+		String eventString = "";
+		Connection<Event> eventsObject = fbClient.fetchConnection("me/events", Event.class, Parameter.with("fields", "id,name,rsvp_status"));
+			
+		    System.out.println(eventsObject.getData().size()+" userId -- "+userId);
+		    
+		    for (Event event: eventsObject.getData()){
+			    	eventString = eventString + event.getId()+":"+event.getName()+":"+event.getRsvpStatus()+":"+event.getStartTime().toString();
+			    	
+		    }
+		    System.out.println("---- final event string ---- "+eventString);
+		    return eventString;
+	}
 	@Override
 	public List<UserHomeFeed> fetchPostsByType(String userId, String postType) {
 		List<UserHomeFeed> homeFeeds = new ArrayList<UserHomeFeed>();
