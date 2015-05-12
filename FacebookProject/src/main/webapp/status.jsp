@@ -169,7 +169,7 @@ ul.tabs li.active a{
 	<div class="maincontent">
         
         <ul class="tabs">
-            <li><a href="/facebookapp">&nbsp;Photos&nbsp;</a></li>
+            <li><a href="/photo">&nbsp;Photos&nbsp;</a></li>
             <li><a href="#tab2">&nbsp;Videos&nbsp;</a></li>
             <li><a href="#tab3">&nbsp;Statuses&nbsp;</a></li>
             <li><a href="/event">&nbsp;Events&nbsp;</a></li>

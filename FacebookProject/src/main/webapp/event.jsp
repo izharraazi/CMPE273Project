@@ -169,7 +169,7 @@ ul.tabs li.active a{
 	<div class="maincontent">
         
         <ul class="tabs">
-            <li><a href="#tab1">&nbsp;Photos&nbsp;</a></li>
+            <li><a href="/photo">&nbsp;Photos&nbsp;</a></li>
             <li><a href="/video">&nbsp;Videos&nbsp;</a></li>
             <li><a href="/status">&nbsp;Statuses&nbsp;</a></li>
             <li><a href="/event">&nbsp;Events&nbsp;</a></li>

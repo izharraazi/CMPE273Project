@@ -42,7 +42,7 @@ public class FacebookController {
         	try{
             fbClient = connection.doFacebookLogin(profileCode, redirectURL);
             user = connection.getCurrentUser(fbClient);
-            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsOnType(user.getId(), "photo");
+            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsByType(user.getId(), "photo");
             System.out.println("Inside here!!"+homeFeeds);
             model.setViewName("userHomeFeed.jsp");
             model.addObject("user",user);
@@ -58,10 +58,25 @@ public class FacebookController {
         	}
         }
         
+        @RequestMapping(value = "/photo", method = RequestMethod.GET)
+        public ModelAndView photo(ModelAndView model) throws IOException{
+        	try{
+            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsByType(user.getId(), "photo");
+            System.out.println("Inside here!!"+homeFeeds);
+            model.setViewName("userHomeFeed.jsp");
+            model.addObject("user",user);
+            model.addObject("feeds", homeFeeds);
+            return model;
+        	}catch(Exception exception){
+        		exception.printStackTrace();
+        		return null;
+        	}
+        }
+        
         @RequestMapping(value = "/video", method = RequestMethod.GET)
         public ModelAndView video(ModelAndView model) throws IOException{
         	try{
-            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsOnType(user.getId(), "video");
+            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsByType(user.getId(), "video");
             System.out.println("Inside here!!"+homeFeeds);
             model.setViewName("video.jsp");
             model.addObject("user",user);
@@ -75,7 +90,7 @@ public class FacebookController {
         @RequestMapping(value = "/status", method = RequestMethod.GET)
         public ModelAndView status(ModelAndView model) throws IOException{
         	try{
-            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsOnType(user.getId(), "status");
+            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsByType(user.getId(), "status");
             System.out.println("Inside here!!"+homeFeeds);
             model.setViewName("status.jsp");
             model.addObject("user",user);
@@ -89,7 +104,7 @@ public class FacebookController {
         @RequestMapping(value = "/event", method = RequestMethod.GET)
         public ModelAndView event(ModelAndView model) throws IOException{
         	try{
-            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsOnType(user.getId(), "event");
+            List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsByType(user.getId(), "event");
             System.out.println("Inside here!!"+homeFeeds);
             model.setViewName("event.jsp");
             model.addObject("user",user);
