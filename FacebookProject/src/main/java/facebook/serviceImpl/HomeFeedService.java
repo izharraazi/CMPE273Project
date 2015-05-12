@@ -3,11 +3,14 @@ package facebook.serviceImpl;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -24,6 +27,7 @@ import com.restfb.types.Post.Comments;
 import com.restfb.types.Post.Likes;
 
 import facebook.Utility.HomeFeedUtility;
+import facebook.model.UserComment;
 import facebook.model.UserHomeFeed;
 import facebook.service.HomeFeed;
 
@@ -78,7 +82,7 @@ public class HomeFeedService implements HomeFeed {
 	}
 
 	@Override
-	public List<UserHomeFeed> fetchPostsOnType(String userId, String postType) {
+	public List<UserHomeFeed> fetchPostsByType(String userId, String postType) {
 		List<UserHomeFeed> homeFeeds = new ArrayList<UserHomeFeed>();
  	   try {
    	    MongoClientURI uri  = new MongoClientURI("mongodb://Team273:Team273@ds061621.mongolab.com:61621/team273"); 
@@ -102,6 +106,17 @@ public class HomeFeedService implements HomeFeed {
    			feed.setUserid((String)a.get("userid"));
    			feed.setPicture((String)a.get("picture"));
    			feed.setSource((String)a.get("source"));
+   			Set<UserComment> commentList = new HashSet<UserComment>();
+   			BasicDBList comments = (BasicDBList)a.get("comments");
+   			for(Object comment:comments){
+   				DBObject dbObjectComment = (DBObject)comment;
+   				UserComment userComment = new UserComment();
+   				userComment.setId((String)dbObjectComment.get("_id"));
+   				userComment.setCommentmessage((String)dbObjectComment.get("commentmessages"));
+   				commentList.add(userComment);
+   				//System.out.println("--comment "+dbObjectComment);
+   			}
+   			feed.setComments(commentList);
    			homeFeeds.add(feed);
    			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
    			//System.out.println(cursor.next());
