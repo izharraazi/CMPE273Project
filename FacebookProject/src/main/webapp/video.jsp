@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Design and Code an integrated Facebook App</title>
+<title>Video</title>
 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
@@ -112,7 +112,7 @@ ul.tabs li {
 	position: relative;
 	background: #f2f2f2;
 	margin-right:5px;
-	min-width:73px;
+	min-width:90px;
 	text-align:center;
 	
 }
@@ -128,7 +128,7 @@ ul.tabs li a {
 	text-decoration: none;
 	color: #333333;
 	display: block;
-	font-size: 11px;
+	font-size: 16px;
 
 	padding-right:5px;
 	padding-left:5px;
@@ -145,6 +145,12 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that th
 }
 ul.tabs li.active a{
 	color:#3B5998;	
+}
+.pmsg{
+font-size: 13px;
+line-height: 1.5em;
+font-weight:bold;
+margin-bottom:18px;
 }
 </style>
 </head>
@@ -163,17 +169,20 @@ ul.tabs li.active a{
             <li><a href="/photo">&nbsp;Photos&nbsp;</a></li>
             <li><a href="#tab2">&nbsp;Videos&nbsp;</a></li>
             <li><a href="/status">&nbsp;Statuses&nbsp;</a></li>
-            <li><a href="/event">&nbsp;Events&nbsp;</a></li>
+            
 		</ul>
 		<c:forEach items="${feeds}" var="arr">
    <c:set var="likes" value="${arr.like}"/> 
     <c:set var="type" value="${arr.type}"/>
-    <p>${arr.message}</p>
+    
     <p class="video">
     	<c:if test="${type=='video'}">
 	<video width="400" controls>
     	<source src="${arr.source}" type="video/mp4">
     	</video>
+    	<span class="line"></span>
+          <p class="pmsg">${arr.message}</p>
+       <span class="line"></span>
          </c:if>   
         </p>  
     	</c:forEach>

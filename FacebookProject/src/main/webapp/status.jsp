@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Design and Code an integrated Facebook App</title>
+<title>Status</title>
 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
@@ -121,7 +121,7 @@ ul.tabs li {
 	position: relative;
 	background: #f2f2f2;
 	margin-right:5px;
-	min-width:73px;
+	min-width:90px;
 	text-align:center;
 	
 }
@@ -137,7 +137,7 @@ ul.tabs li a {
 	text-decoration: none;
 	color: #333333;
 	display: block;
-	font-size: 11px;
+	font-size: 16px;
 
 	padding-right:5px;
 	padding-left:5px;
@@ -155,6 +155,12 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that th
 ul.tabs li.active a{
 	color:#3B5998;	
 }
+.pmsg{
+font-size: 13px;
+line-height: 1.5em;
+font-weight:bold;
+margin-bottom:18px;
+}
 </style>
 </head>
 <body>
@@ -170,9 +176,9 @@ ul.tabs li.active a{
         
         <ul class="tabs">
             <li><a href="/photo">&nbsp;Photos&nbsp;</a></li>
-            <li><a href="#tab2">&nbsp;Videos&nbsp;</a></li>
+            <li><a href="/video">&nbsp;Videos&nbsp;</a></li>
             <li><a href="#tab3">&nbsp;Statuses&nbsp;</a></li>
-            <li><a href="/event">&nbsp;Events&nbsp;</a></li>
+            
 		</ul>
 	<c:forEach items="${feeds}" var="arr">
    <c:set var="likes" value="${arr.like}"/> 
@@ -180,7 +186,7 @@ ul.tabs li.active a{
     
     <p class="video">
     	<c:if test="${type=='status'}">
-		<p>${arr.message}</p>
+		<p class="pmsg">${arr.message}</p>
          </c:if>   
         </p>  
     	</c:forEach>

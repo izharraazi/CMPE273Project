@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Design and Code an integrated Facebook App</title>
+<title>Home</title>
 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
@@ -132,7 +132,7 @@ ul.tabs li {
 	position: relative;
 	background: #f2f2f2;
 	margin-right:5px;
-	min-width:73px;
+	min-width:90px;
 	text-align:center;
 	
 }
@@ -144,7 +144,7 @@ ul.tabs li a {
 	text-decoration: none;
 	color: #333333;
 	display: block;
-	font-size: 11px;
+	font-size: 16px;
 
 	padding-right:5px;
 	padding-left:5px;
@@ -169,8 +169,9 @@ margin-top:5px;
 margin-bottom:10px;
 }
 p{
-font-size: 11px;
+font-size: 13px;
 line-height: 1.5em;
+font-weight:bold;
 margin-bottom:18px;
 }
 .line{
@@ -203,7 +204,7 @@ text-decoration: none;
             <li><a href="http://localhost:8080/facebookApp">&nbsp;Photos&nbsp;</a></li>
             <li><a href="/video">&nbsp;Videos&nbsp;</a></li>
             <li><a href="/status">&nbsp;Statuses&nbsp;</a></li>
-            <li><a href="/event">&nbsp;Events&nbsp;</a></li>
+            
 		</ul>
 	<div class="tab_container">
     <div id="tab1" class="tab_content">
@@ -218,7 +219,7 @@ text-decoration: none;
     <c:set var="type" value="${arr.type}"/>
        	<c:if test="${likes== true}">
     	<c:if test="${type=='photo'}">
-    	<p> &nbsp;  <img src="${arr.picture}" alt="image" width="120px" height="100px"/></p>
+    	<p> &nbsp; <a href="${arr.link}" target="_blank"><img src="${arr.picture}" alt="image" width="120px" height="100px"/></a></p>
     	</c:if>
     	<span class="line"></span>
           <p>${arr.message}</p>
@@ -229,13 +230,6 @@ text-decoration: none;
         </div><!--End Blog Post-->
         
     </div>
-    <div id="tab2" class="tab_content">
-    
-    Test 1234
-		
-
-    
-    </div><!--End Tab 2 -->
   </div>
     
 </div><!--End Wrapper -->
