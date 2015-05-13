@@ -30,7 +30,7 @@ public class FacebookController {
 		@Autowired
 	    UserHomeFeedRepo homeFeedRepo;
 	    
-		private static String redirectURL = "http://localhost:8080/facebookApp";
+		private static String redirectURL = "http://54.67.29.91:8080/facebookApp";
 		
 		private static FacebookClient fbClient;
 		private static User user;
