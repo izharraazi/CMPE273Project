@@ -1,53 +1,94 @@
-/*package facebook.Messaging;
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+package facebook.Messaging;  
+  
+import java.io.UnsupportedEncodingException;  
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;  
+import java.util.logging.Level;  
+import java.util.logging.Logger;  
 
-public class FacebookEmailService
-{
-   public static void main(String [] args)
-   {    
-      // Recipient's email ID needs to be mentioned.
-      String to = "izharraazi@gmail.com";
+import javax.mail.Authenticator;  
+import javax.mail.Message;  
+import javax.mail.MessagingException;  
+import javax.mail.PasswordAuthentication;  
+import javax.mail.Session;  
+import javax.mail.Transport;  
+import javax.mail.internet.InternetAddress;  
+import javax.mail.internet.MimeMessage;  
 
-      // Sender's email ID needs to be mentioned
-      String from = "web@gmail.com";
+import org.springframework.util.StringUtils;
+  
+public class FacebookEmailService {  
+  
+    private String SMTP_HOST = "smtp.gmail.com";  
+    private String FROM_ADDRESS = "cmpe273.dkhiteam@gmail.com";  
+    private String PASSWORD = "cmpe273team";  
+    private String FROM_NAME = "Team273";  
+    private final String SUBJECT = "Events";
+  
+    public boolean sendMail(String receiver, String message) {  
+        try {  
+            Properties props = new Properties();  
+            props.put("mail.smtp.host", SMTP_HOST);  
+            props.put("mail.smtp.auth", "true");  
+            props.put("mail.debug", "false");  
+            props.put("mail.smtp.ssl.enable", "true");  
+  
+            Session session = Session.getInstance(props, new SocialAuth());  
+            Message msg = new MimeMessage(session);  
+  
+            InternetAddress from = new InternetAddress(FROM_ADDRESS, FROM_NAME);  
+            msg.setFrom(from);  
+  
+            InternetAddress toAddresses = new InternetAddress(receiver);  
+            msg.setRecipient(Message.RecipientType.TO, toAddresses);  
+            
+          //  message = parsemsg(message);
+  
+            msg.setSubject(SUBJECT);  
+            msg.setContent(message, "text/plain");  
+            Transport.send(msg);  
+            System.out.println("FacebookEmailService.sendMail() Message sent successfully");
+            return true;  
+        } catch (UnsupportedEncodingException ex) {  
+        	System.out.println("MessageFailed");
+            return false;  
+  
+        } catch (MessagingException ex) {  
+            return false;  
+        }  
+    }  
+  
+    class SocialAuth extends Authenticator {  
+  
+        @Override  
+        protected PasswordAuthentication getPasswordAuthentication() {  
+  
+            return new PasswordAuthentication(FROM_ADDRESS, PASSWORD);  
+  
+        }  
+    }  
+    
+    
+    private List<String> parseMsg(String msg) {
+        List<String> result = new ArrayList();
 
-      // Assuming you are sending email from localhost
-      String host = "localhost";
+        if (StringUtils.isEmpty(msg)) {
+            return result;
+        }
 
-      // Get system properties
-      Properties properties = System.getProperties();
+        for (String each : msg.split("~")) {
+            result.add(each);
+        }
 
-      // Setup mail server
-      properties.setProperty("mail.smtp.host", host);
-
-      // Get the default Session object.
-      Session session = Session.getDefaultInstance(properties);
-
-      try{
-         // Create a default MimeMessage object.
-         MimeMessage message = new MimeMessage(session);
-
-         // Set From: header field of the header.
-         message.setFrom(new InternetAddress(from));
-
-         // Set To: header field of the header.
-         message.addRecipient(Message.RecipientType.TO,
-                                  new InternetAddress(to));
-
-         // Set Subject: header field
-         message.setSubject("This is the Subject Line!");
-
-         // Now set the actual message
-         message.setText("This is actual message");
-
-         // Send message
-         Transport.send(message);
-         System.out.println("Sent message successfully....");
-      }catch (MessagingException mex) {
-         mex.printStackTrace();
-      }
-   }
-}*/
+        return result;
+    }
+  /* public static void main(String[] args) {  
+        String recipients = "izharraazi@gmail.com";  
+        String subject = "Hi this is test Mail";  
+        String messageBody = "Test Mail from team cmpe 273";  
+  
+        new FacebookEmailService().sendMail(recipients, messageBody);  
+  
+    }  */
+}  

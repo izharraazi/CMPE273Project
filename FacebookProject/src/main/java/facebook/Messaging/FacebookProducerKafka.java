@@ -36,7 +36,7 @@ public class FacebookProducerKafka {
 		 producer.send(message);
 		 producer.close();
 		 System.out
-		 .println("MessageProducerKafka.KafkaProducerPublishMessage() Message Posted Successfully"+p_message+" at Time:"+System.currentTimeMillis());
+		 .println("FacebookProducerKafka.KafkaProducerPublishMessage() Message Posted Successfully"+p_message+" at Time:"+System.currentTimeMillis());
 		 return 0;
 	 }catch(Exception e){
 		 e.printStackTrace();

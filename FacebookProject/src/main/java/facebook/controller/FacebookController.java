@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
 import com.restfb.FacebookClient;
 import com.restfb.types.User;
 
+import facebook.Messaging.FacebookEmailService;
+import facebook.model.UserHashTag;
 //import facebook.model.UserComment;
 import facebook.model.UserHomeFeed;
 //import facebook.repository.UserCommentRepo;
@@ -23,8 +23,8 @@ import facebook.repository.UserHomeFeedRepo;
 import facebook.service.FacebookConnection;
 import facebook.service.HomeFeed;
 import facebook.serviceImpl.FacebookConnectionService;
+import facebook.serviceImpl.HashTagService;
 import facebook.serviceImpl.HomeFeedService;
-
 @RestController
 public class FacebookController {
 		@Autowired
@@ -36,12 +36,14 @@ public class FacebookController {
 		private static User user;
 		private FacebookConnection connection = new FacebookConnectionService();
 		private HomeFeed homeFeedService = new HomeFeedService();
+		private static final String KAFKA_ZOOKEEPER_URL  = "localhost:9092";
 	
         @RequestMapping(name = "facebookApp", method = RequestMethod.GET)
         public ModelAndView facebookLogin(@RequestParam(value="code") String profileCode, ModelAndView model) throws IOException{
         	try{
             fbClient = connection.doFacebookLogin(profileCode, redirectURL);
             user = connection.getCurrentUser(fbClient);
+            System.out.println("FacebookController.facebookLogin() #########################EMAIL################::"+user.getEmail());
             List<UserHomeFeed> homeFeeds = homeFeedService.fetchPostsByType(user.getId(), "photo");
             System.out.println("Inside here!!"+homeFeeds);
             model.setViewName("userHomeFeed.jsp");
@@ -115,12 +117,67 @@ public class FacebookController {
         		return null;
         	}
         }
+
+@RequestMapping(value = "/hashtag", method = RequestMethod.GET)
+        public ModelAndView hashTags(ModelAndView model) throws IOException{
+        	try{
+        		HashTagService ht = new HashTagService();
+	            List<UserHashTag> hashtag = ht.findTrendingHashTags(fbClient, user.getId());
+	            System.out.println("Inside here!!"+hashtag);
+	            model.setViewName("hashtag.jsp");
+	            model.addObject("user",user);
+	            model.addObject("hash", hashtag);
+            return model;
+        	}catch(Exception exception){
+        		exception.printStackTrace();
+        		return null;
+        	}
+        }
+        
+    	
+    		//	List<UserEvents> usrEvent = 
+    					//StringBuilder abc  = homeFeedService.fetchEvents(fbClient,user.getId());
+    			/*StringBuilder str = new StringBuilder();
+    			System.out.println("FacebookController.sendEvent():::::::");
+    			for (UserEvents temp : usrEvent) {
+    				System.out.println("FacebookController.sendEvent()"+temp.getDescription());
+    				str.append(temp.getDescription());
+    			} 
+    			System.out.println("FacebookController.sendEvent()"+abc);
+    			//	FacebookProducerKafka messaging = new FacebookProducerKafka();
+    				//messaging.KafkaProducerPublishMessage("izharraazi@gmail.com#1.Event1::2.Event23.::Event3");
+    			
+    		}
+    		
+    		
+    	}/*
+    	
+    	/*@Scheduled(fixedRate = 10000)
+        public void consumeMessages() {
+            System.out.println("The consumer schedular i running ");
+            FacebookConsumer kafkaConsumer = new FacebookConsumer("localhost:9092", "test-group","facebookEvent");
+            kafkaConsumer.getMessage();
+        }*/
+
+		
+		@Scheduled(fixedRate = 10000)
+    	public void sendEvent(){
+    		if(fbClient!=null && user!=null){
+    			String events = homeFeedService.searchEvents(fbClient,user.getId());
+    			System.out.println("FacebookController.sendEvent() --- Sending Email");
+    			
+    			FacebookEmailService email = new FacebookEmailService();
+    			email.sendMail(user.getEmail(), events);
+	            
+    		}else{
+    			System.out.println("User not yet logged in");
+    		}
+    	}	
     	@Scheduled(fixedRate = 5000)
     	public void fetchUserDetails(){
     		if(fbClient!=null && user!=null){
     			System.out.println("Start Scheduler");
     			List<UserHomeFeed> homeFeeds = homeFeedService.findFavoritePosts(fbClient,user.getId());
-    			System.out.println("homeFeeds .. "+homeFeeds.size());
 	            for(UserHomeFeed homeFeed:homeFeeds){
 	      		    homeFeedRepo.save(homeFeed);
 	      		}
