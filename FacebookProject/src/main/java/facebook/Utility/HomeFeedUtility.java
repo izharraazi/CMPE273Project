@@ -163,7 +163,7 @@ public class HomeFeedUtility {
       if(post.getPicture()!=null && !post.getPicture().isEmpty()){
 	  homeFeed.setPicture(post.getPicture());
       }
-      if(post.getSource()!=null && !post.getSource().isEmpty()){
+      if(post.getType()=="video" && post.getSource()!=null && !post.getSource().isEmpty()){
     	  homeFeed.setSource(post.getSource());
       }else
       homeFeed.setMessage("No video source");
