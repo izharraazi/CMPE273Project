@@ -1,23 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Video</title>
-
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 <script src="/js/myjava.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-
 	$(".tab_content").hide(); //On page load hide all the contents of all tabs
 	$("ul.tabs li:nth-child(2)").addClass("active").show(); //Default to the first tab
 	$(".tab_content:nth-child(2)").show(); //Show the default tabs content
-
 	//When the user clicks on the tab
 	
 });
@@ -129,10 +125,8 @@ ul.tabs li a {
 	color: #333333;
 	display: block;
 	font-size: 16px;
-
 	padding-right:5px;
 	padding-left:5px;
-
 	outline: none;
 }
 ul.tabs li a:hover {
@@ -155,21 +149,18 @@ margin-bottom:18px;
 </style>
 </head>
 <body>
-
 <div class="topdiv">
 </div>
 <div style="height:2px;background"></div>
 <div class="mainbody">
-
 <div class="wrapper">
-
 	<div class="maincontent">
         
         <ul class="tabs">
             <li><a href="/photo">&nbsp;Photos&nbsp;</a></li>
-            <li><a href="#tab2">&nbsp;Videos&nbsp;</a></li>
+            <li><a href="/status">&nbsp;Videos&nbsp;</a></li>
             <li><a href="/status">&nbsp;Statuses&nbsp;</a></li>
-            
+            <li><a href="/hashtag">&nbsp;Hashtags&nbsp;</a></li>
 		</ul>
 		<c:forEach items="${feeds}" var="arr">
    <c:set var="likes" value="${arr.like}"/> 
