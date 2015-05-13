@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" >
-<title>welcome</title>
-
+<title>Welcome</title>
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 <script src="/js/myjava.js" type="text/javascript"></script>
@@ -104,10 +102,8 @@ ul.tabs li a {
 	color: #333333;
 	display: block;
 	font-size: 11px;
-
 	padding-right:5px;
 	padding-left:5px;
-
 	outline: none;
 }
 ul.tabs li a:hover {
@@ -138,30 +134,19 @@ margin-right:5px;
 }
 </style>
 </head>
-
-
 <body>
-
 <div class="topdiv">
 </div>
 <div style="height:2px;background"></div>
 <div class="mainbody">
-
 <div class="wrapper">
-
 	<div class="maincontent">
-        
+		<h1 style="padding-left: 20px;font-size: 36px;font-weight: bold;color: #333333 ">Facebook User - Activity Log</h1>
+        <div style="padding-left: 250px;padding-top: 100px">
          <button class="button" onclick="location.href='https://www.facebook.com/dialog/oauth?client_id=1444903262469722&redirect_uri=http://localhost:8080/facebookApp'">Connect to Facebook</button>
-    
+    	</div>
 </div><!--End Wrapper -->
 </div>
 </div>
 </body>
 </html>
-
-        
-       
-    
-
-
-
