@@ -110,7 +110,7 @@ public class HomeFeedService implements HomeFeed {
    		obj.add(new BasicDBObject("type",postType));
    		searchQuery.put("$and", obj);
    		DBCollection table = db.getCollection("userHomeFeed");
-   		DBCursor cursor = table.find(searchQuery);
+   		DBCursor cursor = table.find(searchQuery).sort( new BasicDBObject( "saved_date" , -1 ) );
    		while (cursor.hasNext()) {
    			DBObject a = cursor.next();
    			UserHomeFeed feed = new UserHomeFeed();
