@@ -165,8 +165,7 @@ public class HomeFeedUtility {
       }
       if(post.getType()=="video" && post.getSource()!=null && !post.getSource().isEmpty()){
     	  homeFeed.setSource(post.getSource());
-      }else
-      homeFeed.setMessage("No video source");
+      }
       
       return homeFeed;
    }
