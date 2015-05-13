@@ -143,7 +143,7 @@ margin-right:5px;
 	<div class="maincontent">
 		<h1 style="padding-left: 20px;font-size: 36px;font-weight: bold;color: #333333 ">Facebook User - Activity Log</h1>
         <div style="padding-left: 250px;padding-top: 100px">
-         <button class="button" onclick="location.href='https://www.facebook.com/dialog/oauth?client_id=1444903262469722&redirect_uri=http://localhost:8080/facebookApp'">Connect to Facebook</button>
+         <button class="button" onclick="location.href='https://www.facebook.com/dialog/oauth?client_id=1444903262469722&redirect_uri=http://54.67.29.91:8080/facebookApp'">Connect to Facebook</button>
     	</div>
 </div><!--End Wrapper -->
 </div>
