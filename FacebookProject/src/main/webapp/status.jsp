@@ -1,30 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Status</title>
-
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 <script src="/js/myjava.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-
 	$(".tab_content").hide(); //On page load hide all the contents of all tabs
 	$("ul.tabs li:nth-child(3)").addClass("active").show(); //Default to the first tab
 	$(".tab_content:nth-child(3)").show(); //Show the default tabs content
-
 	//When the user clicks on the tab
 	$("ul.tabs li").click(function() {
-
 		$("ul.tabs li").removeClass("active"); //Remove the active class
 		$(this).addClass("active"); //Add the active tab to the selected tab
 		$(".tab_content").hide(); //Hide all other tab content
-
 		var activeTab = $(this).find("a").attr("href"); //Get the href's attribute value (class) and fade in the corresponding tabs content
 		$(activeTab).fadeIn(); //Fade the tab in
 		return false;
@@ -138,10 +132,8 @@ ul.tabs li a {
 	color: #333333;
 	display: block;
 	font-size: 16px;
-
 	padding-right:5px;
 	padding-left:5px;
-
 	outline: none;
 }
 ul.tabs li a:hover {
@@ -161,34 +153,39 @@ line-height: 1.5em;
 font-weight:bold;
 margin-bottom:18px;
 }
+.line{
+display:block;
+width:100%;
+height:1px;
+background-color:#ccc;
+margin-top:5px;
+margin-bottom:5px;
+}
 </style>
 </head>
 <body>
-
 <div class="topdiv">
 </div>
 <div style="height:2px;background"></div>
 <div class="mainbody">
-
 <div class="wrapper">
-
 	<div class="maincontent">
         
         <ul class="tabs">
             <li><a href="/photo">&nbsp;Photos&nbsp;</a></li>
             <li><a href="/video">&nbsp;Videos&nbsp;</a></li>
-            <li><a href="#tab3">&nbsp;Statuses&nbsp;</a></li>
-            
+            <li><a href="/status">&nbsp;Statuses&nbsp;</a></li>
+            <li><a href="/hashtag">&nbsp;Hashtags&nbsp;</a></li>
 		</ul>
 	<c:forEach items="${feeds}" var="arr">
    <c:set var="likes" value="${arr.like}"/> 
     <c:set var="type" value="${arr.type}"/>
-    
-    <p class="video">
+   
     	<c:if test="${type=='status'}">
-		<p class="pmsg">${arr.message}</p>
-         </c:if>   
-        </p>  
+		<span class="line"></span>
+          <p class="pmsg"><a href="http://www.google.com" target="_blank">${arr.message}</a></p>
+       <span class="line"></span>
+         </c:if>    
     	</c:forEach>
     
     
