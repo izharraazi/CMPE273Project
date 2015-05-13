@@ -1,23 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Home</title>
-
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 <!-- <script src="/js/myjava.js" type="text/javascript"></script> -->
 <script type="text/javascript">
 $(document).ready(function() {
-
 	$(".tab_content").hide(); //On page load hide all the contents of all tabs
 	$("ul.tabs li:first").addClass("active").show(); //Default to the first tab
 	$(".tab_content:first").show(); //Show the default tabs content
-
 	/*$("#video_a_get").click(function(){
 		$.get('/video',function(data){
 			alert(data);
@@ -25,11 +21,9 @@ $(document).ready(function() {
 	});*/
 	//When the user clicks on the tab
 	$("ul.tabs li").click(function() {
-
 		$("ul.tabs li").removeClass("active"); //Remove the active class
 		$(this).addClass("active"); //Add the active tab to the selected tab
 		$(".tab_content").hide(); //Hide all other tab content
-
 		var activeTab = $(this).find("a").attr("href"); //Get the href's attribute value (class) and fade in the corresponding tabs content
 		$(activeTab).fadeIn(); //Fade the tab in
 		return false;
@@ -69,7 +63,7 @@ body, input{
 background: white;
 font-size: 14px;
 font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
-color: #333;
+color:#3B5998
 line-height: 1.28;
 word-wrap:break-word;	
 }
@@ -145,10 +139,8 @@ ul.tabs li a {
 	color: #333333;
 	display: block;
 	font-size: 16px;
-
 	padding-right:5px;
 	padding-left:5px;
-
 	outline: none;
 }
 ul.tabs li a:hover {
@@ -173,6 +165,7 @@ font-size: 13px;
 line-height: 1.5em;
 font-weight:bold;
 margin-bottom:18px;
+color:#3B5998;
 }
 .line{
 display:block;
@@ -190,41 +183,37 @@ text-decoration: none;
 </style>
 </head>
 <body>
-
 <div class="topdiv">
 </div>
 <div style="height:2px;background"></div>
 <div class="mainbody">
-
 <div class="wrapper">
-
 	<div class="maincontent">
         
         <ul class="tabs">
             <li><a href="http://localhost:8080/facebookApp">&nbsp;Photos&nbsp;</a></li>
             <li><a href="/video">&nbsp;Videos&nbsp;</a></li>
             <li><a href="/status">&nbsp;Statuses&nbsp;</a></li>
-            
+            <li><a href="/hashtag">&nbsp;Hashtags&nbsp;</a></li>
 		</ul>
 	<div class="tab_container">
     <div id="tab1" class="tab_content">
     
           <div class="post">
-                <h3><a href="#">The user, ${user.name} liked these photos</a></h3>
+                <h3>The user, ${user.name} liked these photos</h3>
         </div><!--End Blog Post-->
         
 <br/>
 <c:forEach items="${feeds}" var="arr">
-    <c:set var="likes" value="${arr.like}"/>
+    
     <c:set var="type" value="${arr.type}"/>
-       	<c:if test="${likes== true}">
     	<c:if test="${type=='photo'}">
     	<p> &nbsp; <a href="${arr.link}" target="_blank"><img src="${arr.picture}" alt="image" width="120px" height="100px"/></a></p>
     	</c:if>
     	<span class="line"></span>
           <p>${arr.message}</p>
        <span class="line"></span>
-    </c:if> 
+    
 </c:forEach>
 <br/>
         </div><!--End Blog Post-->
